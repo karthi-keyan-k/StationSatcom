@@ -9,15 +9,19 @@ document.addEventListener("DOMContentLoaded", () => {
     let updatedDetailsList = [];
 
     // Function to fetch data from the server
-    async function fetchData() {
-        try {
-            const response = await fetch("http://localhost:5000/api/details");
-            const data = await response.json();
-            renderTable(data, detailsTable);
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
+    const BASE_URL = "https://stationsatcom.onrender.com";  // Live backend URL
+
+// Function to fetch data from the server
+async function fetchData() {
+    try {
+        const response = await fetch(`${BASE_URL}/api/details`);
+        const data = await response.json();
+        renderTable(data, detailsTable);
+    } catch (error) {
+        console.error("Error fetching data:", error);
     }
+}
+
     
 
     // Function to render table rows
@@ -85,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         try {
-            const response = await fetch("http://localhost:5000/api/details", {
+             const response = await fetch(`${BASE_URL}/api/details`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newEntry),
@@ -106,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Delete Row
     window.deleteRow = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/details/${id}`, { method: "DELETE" });
+            const response = await fetch(`${BASE_URL}/api/details/${id}`, { method: "DELETE" });
 
             if (response.ok) {
                 fetchData(); // Refresh table data
@@ -127,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (newDate && newServiceName && newPackage) {
             try {
-                const response = await fetch(`http://localhost:5000/api/details/${id}`, {
+                const response = await fetch(`${BASE_URL}/api/details/${id}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
@@ -155,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const filterBy = filterOptions.value;
     
         try {
-            const response = await fetch(`http://localhost:5000/api/details`);
+            const response = await fetch(`${BASE_URL}/api/details`);
             const detailsList = await response.json();
     
             // Add index to each item
