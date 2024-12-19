@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -33,27 +34,16 @@ const DetailsSchema = new mongoose.Schema({
 const Details = mongoose.model("Details", DetailsSchema);
 
 // API Routes
+
 // Get all details
 app.get("/api/details", async (req, res) => {
-    try {
-        const details = await Details.find();
-        res.json(details);
-    } catch (err) {
-        res.status(500).json({ error: "Error fetching details" });
-    }
-});
-
-
-app.get("/api/details", async (req, res) => {
-    
     const { query, filterBy } = req.query;
     let filter = {};
 
-    // Check for filter option and apply corresponding query logic
     if (query && filterBy) {
         switch (filterBy) {
             case "ship":
-                filter.shipName = { $regex: query, $options: "i" }; // Case-insensitive regex search
+                filter.shipName = { $regex: query, $options: "i" };
                 break;
             case "service":
                 filter.serviceName = { $regex: query, $options: "i" };
@@ -62,22 +52,14 @@ app.get("/api/details", async (req, res) => {
                 filter.imoNumber = { $regex: query, $options: "i" };
                 break;
             default:
-                console.log("Invalid filterBy value:", filterBy);
                 return res.status(400).json({ error: "Invalid filterBy value" });
         }
-    } else {
-        console.log("Missing query or filterBy parameters");
-        return res.status(400).json({ error: "Missing query or filterBy parameters" });
     }
 
-    console.log("Filter object:", filter); // Log the filter object
-
     try {
-        const details = await Details.find(filter); // Apply filter if present
-        console.log("Filtered details:", details); // Log the filtered details
+        const details = await Details.find(filter);
         res.json(details);
     } catch (err) {
-        console.error("Error fetching details:", err);
         res.status(500).json({ error: "Error fetching details" });
     }
 });
@@ -115,8 +97,13 @@ app.delete("/api/details/:id", async (req, res) => {
     }
 });
 
+// Serve static frontend files
+app.use(express.static(path.join(__dirname, "public")));
 
-
+// Catch-all route to serve index.html
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 // Start Server
 app.listen(port, () => {
