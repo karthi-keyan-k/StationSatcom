@@ -9,8 +9,60 @@
 <body>
     <header>
         <h1>Station Satcom Management</h1>
+        <div class="settings-icon" onclick="toggleSettings()">⚙️</div>
     </header>
 
+    <div id="settings-panel" class="settings-panel">
+        <h2>Settings</h2>
+        <div class="settings-content">
+            <!-- Add your settings content here -->
+            <label for="ship-name-settings">Add New Ship Name:</label>
+            <div class="dropdown-container">
+                <!-- <select id="ship-name-settings" required>
+                    <option value="" disabled selected>Select Service Name</option>
+                </select>
+                <button type="button" onclick="deleteShipName(document.getElementById('ship-name-settings').value)">Delete</button> -->
+                <div class="newoption">
+                    <input type="text" id="new-ship-name" placeholder="Enter New Ship Name">
+                    <button type="button" onclick="addShipName()">Add</button>
+                </div>
+            </div>
+            <label for="service-name-settings">Add New Service Name:</label>
+            <div class="dropdown-container">
+                <!-- <input type="text" id="service-name-settings" placeholder="Select Service Name" readonly onclick="toggleDropdown('settings')">
+                <div class="dropdown-content" id="service-dropdown-settings"> -->
+                    <!-- Options will be populated dynamically -->
+                <!-- </div> -->
+                <!-- <button type="button" onclick="deleteServiceName()">Delete</button> -->
+                <div class="newoption">
+                    <input type="text" id="new-service-name" placeholder="Enter New Service Name">
+                    <button type="button" onclick="addServiceName()">Add</button>
+                </div>
+            </div>
+            
+            <!-- Add more settings as needed -->
+        </div>
+    </div>
+    <!-- Login Page -->
+    
+    <div id="login-page" class="login-page active">
+        <h2 class="login-title">Login</h2>
+        <div class="login-container">
+            <label for="login-username">Username:</label>
+            <input type="text" id="login-username" placeholder="Enter Username" required>
+            
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" placeholder="Enter Password" required>
+            
+            <button onclick="handleLogin()" class="login-button">Login</button>
+            <p id="login-error" class="login-error-message"></p>
+        </div>
+    </div>
+    
+
+
+    <div id="main-page" class="main-page">
+    
     <main>
         <!-- Single Form to Add Ship, Service, and Customer Details -->
         <section class="unified-form">
@@ -21,8 +73,24 @@
                 <label for="employer-name">Employer Name:</label>
                 <input type="text" id="employer-name" placeholder="Enter Employer Name" required>
 
+                
+
+
+
                 <label for="ship-name">Ship Name:</label>
-                <input type="text" id="ship-name" placeholder="Enter Ship Name" required>
+                <div class="dropdown-container">
+                    <select id="ship-name" required>
+                        <option value="" disabled selected>Select Service Name</option>
+                    </select>
+                    
+                    <button type="button" onclick="deleteShipName(document.getElementById('ship-name').value)">Delete</button>
+                    
+                </div>
+                
+
+
+
+
                 
                 <label for="imo-number">IMO Number:</label>
                 <input type="text" id="imo-number" placeholder="Enter IMO Number" required>
@@ -30,12 +98,31 @@
                 <label for="service-date">Service Date:</label>
                 <input type="date" id="service-date" required>
                 
-                <!-- Service Provided -->
+
+
                 <label for="service-name">Service Name:</label>
-                <input type="text" id="service-name" placeholder="Enter Service Name" required>
+                <div class="dropdown-container">
+                    <input type="text" id="service-name" placeholder="Select Service Name" readonly onclick="toggleDropdown()">
+                    <div class="dropdown-content" id="service-dropdown">
+                        <!-- Options will be populated dynamically -->
+                         
+                    </div>
+                    <button type="button" onclick="deleteServiceName(document.getElementById('service-name').value)">Delete</button>
+                    
+                </div>
                 
+                
+                
+                
+
+                
+
+
+
+                
+
                 <label for="service-quantity">Package (GB):</label>
-                <input type="number" id="service-quantity" placeholder="Enter Package Quantity" required>
+                <input type="text" id="service-quantity" placeholder="Enter Package Quantity" required>
                 
                 <!-- Customer Details -->
                 <label for="company-name">Company Name:</label>
@@ -116,14 +203,38 @@
             
         </section>
         <br>
+        <!--  -->
+
+
+
+
+
+    <!-- History Modal -->
+    <div id="history-modal" class="history-modal">
+        <div class="history-modal-content">
+            <span class="close" onclick="document.getElementById('history-modal').style.display='none'">&times;</span>
+            <h2>Modification History</h2>
+            <ul id="history-content">
+                <!-- History entries will be populated here -->
+            </ul>
+        </div>
+    </div>
+
+    
+
+
+
+
+        <!--  -->
 
 
 
     </main>
+    
+    </div>
     <header>
-        <h1></h1>
+        <h1>© 2025 Station Satcom. All rights reserved.</h1>
     </header>
-
     <script src="script.js"></script>
 </body>
 </html>
