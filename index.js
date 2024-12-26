@@ -27,7 +27,7 @@ const DetailsSchema = new mongoose.Schema({
     imoNumber: String,
     serviceDate: String,
     serviceName: String,
-    package: Number,
+    package: String,
     companyName: String,
     contact: String,
     email: String,
@@ -144,25 +144,6 @@ app.get("/api/details/:id/history", async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-// app.put("/api/details/:id", async (req, res) => {
-//     try {
-//         const updatedDetails = await Details.findByIdAndUpdate(req.params.id, req.body, {
-//             new: true,
-//         });
-//         res.json(updatedDetails);
-//     } catch (err) {
-//         res.status(500).json({ error: "Error updating details" });
-//     }
-// });
-
-// Delete an entry
 app.delete("/api/details/:id", async (req, res) => {
     try {
         await Details.findByIdAndDelete(req.params.id);
